@@ -25,7 +25,7 @@ use work.helper-functions.all;
 
 entity CLK_DIV is
 	generic (
-		DIV				: positive := 2
+		DIV					: positive := 2
 	);
 	port (
 		nRST_i				: in std_ulogic;
