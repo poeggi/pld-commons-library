@@ -1,7 +1,6 @@
 --
 -- Generic clock divider
 --
---
 -- This entity generates a ripple/gated clock net!
 -- Be sure to know when NOT to use this kind of clock!
 --
@@ -26,7 +25,7 @@ use work.helper-functions.all;
 
 entity CLK_DIV is
 	generic (
-		DIV					: positive := 2
+		DIV				: positive := 2
 	);
 	port (
 		nRST_i				: in std_ulogic;
