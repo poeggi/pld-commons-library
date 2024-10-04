@@ -28,11 +28,11 @@ generic (
 	MADRWIDTH		: positive := 8;
 	MDATWIDTH		: positive := 8;
 	MBYTEORDER		: natural range 0 to 76543210
-				:= 76543210;
+					:= 76543210;
 	SADRWIDTH		: positive;
 	SDATWIDTH		: positive;
 	SBYTEORDER		: natural range 0 to 76543210
-				:= 76543210
+					:= 76543210
 );
 port (
 	MASTER_ADDR_i		: in  std_logic_vector(MADRWIDTH-1 downto 0);
@@ -54,10 +54,10 @@ architecture behaviour of ADDRESS_DOMAIN_TRANSLATOR is
 	signal MBYTE_ORDER_A: BYTE_ORDER_ARRAY(MDATWIDTH/8-1 downto 0);
 	signal SBYTE_ORDER_A: BYTE_ORDER_ARRAY(SDATWIDTH/8-1 downto 0);
 
-	constant SDAT_ABITS 	: natural := log2_ceil(SDATWIDTH/8);
+	constant SDAT_ABITS : natural := log2_ceil(SDATWIDTH/8);
 	signal adr_idx		: integer range 0 to (SDATWIDTH/8-1);
 	constant BYTE_EN	: bit_vector(SLAVE_BYTE_EN_o'range)
-				:= (0 => '1', others => '0');
+						:= (0 => '1', others => '0');
 
 begin
 
