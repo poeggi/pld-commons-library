@@ -25,25 +25,25 @@ use work.helper-functions.all; --for log2_ceil
 
 entity ADDRESS_DOMAIN_TRANSLATOR is
 generic (
-	MADRWIDTH		   : positive := 8;
-	MDATWIDTH		   : positive := 8;
-	MBYTEORDER		  : natural range 0 to 76543210
-						:= 76543210;
-	SADRWIDTH		   : positive;
-	SDATWIDTH		   : positive;
-	SBYTEORDER		  : natural range 0 to 76543210
-						:= 76543210
+	MADRWIDTH		: positive := 8;
+	MDATWIDTH		: positive := 8;
+	MBYTEORDER		: natural range 0 to 76543210
+				:= 76543210;
+	SADRWIDTH		: positive;
+	SDATWIDTH		: positive;
+	SBYTEORDER		: natural range 0 to 76543210
+				:= 76543210
 );
 port (
-	MASTER_ADDR_i	   : in  std_logic_vector(MADRWIDTH-1 downto 0);
-	MASTER_DATA_i	   : in  std_logic_vector(MDATWIDTH-1 downto 0);
+	MASTER_ADDR_i		: in  std_logic_vector(MADRWIDTH-1 downto 0);
+	MASTER_DATA_i		: in  std_logic_vector(MDATWIDTH-1 downto 0);
 	MASTER_BYTE_EN_i	: in  std_logic_vector((MDATWIDTH/8)-1 downto 0);
-	MASTER_DATA_o	   : out std_logic_vector(MDATWIDTH-1 downto 0);
+	MASTER_DATA_o		: out std_logic_vector(MDATWIDTH-1 downto 0);
 
 	SLAVE_ADDR_o		: out std_logic_vector(SADRWIDTH-1 downto 0);
 	SLAVE_DATA_i		: in  std_logic_vector(SDATWIDTH-1 downto 0);
 	SLAVE_DATA_o		: out std_logic_vector(SDATWIDTH-1 downto 0);
-	SLAVE_BYTE_EN_o	 : out std_logic_vector((SDATWIDTH/8)-1 downto 0)
+	SLAVE_BYTE_EN_o		: out std_logic_vector((SDATWIDTH/8)-1 downto 0)
 );
 end entity;
 
@@ -54,18 +54,16 @@ architecture behaviour of ADDRESS_DOMAIN_TRANSLATOR is
 	signal MBYTE_ORDER_A: BYTE_ORDER_ARRAY(MDATWIDTH/8-1 downto 0);
 	signal SBYTE_ORDER_A: BYTE_ORDER_ARRAY(SDATWIDTH/8-1 downto 0);
 
-	constant SDAT_ABITS : natural := log2_ceil(SDATWIDTH/8);
-	signal adr_idx	  : integer range 0 to (SDATWIDTH/8-1);
+	constant SDAT_ABITS 	: natural := log2_ceil(SDATWIDTH/8);
+	signal adr_idx		: integer range 0 to (SDATWIDTH/8-1);
 	constant BYTE_EN	: bit_vector(SLAVE_BYTE_EN_o'range)
-						:= (0 => '1', others => '0');
+				:= (0 => '1', others => '0');
 
-	begin
+begin
 
 	--
 	-- Generic/config options and port list sanity checks
 	--
-
-	-- TODO: implement support for different widths
 	assert( (MDATWIDTH/8) = 1 )
 		report "ERROR: Master side data width must be 1 byte!"
 		severity failure;
