@@ -22,39 +22,38 @@ use work.qci_mpeg_pkg.all;
 
 entity BYTE_SPLITTER is
 	generic (
-		BIG_nLITTLE_ENDIAN	  : boolean := true;
-		INBYTES				 : positive := 8
+		BIG_nLITTLE_ENDIAN		: boolean := true;
+		INBYTES				: positive := 8
 	);
 	port (
-		RST_i				   : in std_ulogic;
-		CLK_i				   : in std_ulogic;
+		RST_i				: in std_ulogic;
+		CLK_i				: in std_ulogic;
 
 		-- sync. control
-		DRAIN_i				 : in std_ulogic;
+		DRAIN_i				: in std_ulogic;
 
-		EN_i					: in std_ulogic;
+		EN_i				: in std_ulogic;
 
-		RDEN_o				  : out std_ulogic;
-		D_i					 : in std_logic_vector((INBYTES*8)-1 downto 0);
+		RDEN_o				: out std_ulogic;
+		D_i				: in std_logic_vector((INBYTES*8)-1 downto 0);
 
-		Q_o					 : out std_logic_vector(7 downto 0);
-		VALID_o				 : out std_ulogic
+		Q_o				: out std_logic_vector(7 downto 0);
+		VALID_o				: out std_ulogic
 	);
 end entity;
 
 
 architecture BEHAVIOUR of BYTE_SPLITTER is
 
-	constant CNT_WIDTH	  : natural
-							:= log2_ceil(INBYTES);
+	constant CNT_WIDTH	  		: natural
+						:= log2_ceil(INBYTES);
 
-	signal RDEN			 : std_ulogic;
+	signal RDEN				: std_ulogic;
 	signal N				: natural range 0 to INBYTES-1;
 
-	signal Q_ENDIAN		 : std_logic_vector(7 downto 0);
+	signal Q_ENDIAN				: std_logic_vector(7 downto 0);
 
 begin
-
 	-- endianness specific slicing
 	BIG_GEN: if ( BIG_nLITTLE_ENDIAN = true ) generate
 		Q_ENDIAN <= D_i(((INBYTES-N)*8)+7 downto (INBYTES-N)*8);
