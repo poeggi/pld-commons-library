@@ -17,8 +17,6 @@ use ieee.numeric_std.all;
 library work;
 use work.helper-functions.all;
 
-use work.qci_mpeg_pkg.all;
-
 
 entity BYTE_SPLITTER is
 	generic (
@@ -90,7 +88,7 @@ begin
 	end process;
 
 	-- generate read enable combinational as it has to be fast.
-	RDEN <= '1' after SYMDEL
+	RDEN <= '1'
 			 when ((N = INBYTES-1) and (EN_i = '1')) or (DRAIN_i = '1')
 			 else
 			'0';

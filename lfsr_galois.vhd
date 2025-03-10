@@ -29,6 +29,7 @@ use ieee.numeric_std.all;
 
 library work;
 
+
 entity LFSR_GALOIS is
 	generic(
 		DEPTH				: positive;
